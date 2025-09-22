@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แดชบอร์ดสรุปผลการทดสอบ CEFR | สพป.เลย เขต 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        .skill-chart-container {
+             position: relative;
+            height: 180px;
+            width: 100%;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .nav-btn {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .nav-btn.active {
+            background-color: #ffffff;
+            color: #2563eb;
+            border-color: #2563eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-btn:not(.active) {
+            background-color: #eef2ff;
+            color: #4338ca;
+        }
+         .nav-btn:not(.active):hover {
+            background-color: #e0e7ff;
+        }
+        .cefr-color-a1 { background-color: #f97316; }
+        .cefr-color-a2 { background-color: #eab308; }
+        .cefr-color-b1 { background-color: #84cc16; }
+        .cefr-color-b2 { background-color: #22c55e; }
+        .cefr-color-c1 { background-color: #10b981; }
+        .cefr-color-c2 { background-color: #06b6d4; }
+        .cefr-color-a0 { background-color: #ef4444; }
+        .cefr-color-default { background-color: #64748b; }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-8">
+             <div class="flex justify-center items-center space-x-4 md:space-x-6 mb-4">
+                <img src="https://img2.pic.in.th/pic/1297132fc55329cd5.png" alt="เลย1" class="h-20 md:h-24">
+                <img src="https://img5.pic.in.th/file/secure-sv1/logo8bc9b09ca6b5f415.png" alt="1 อำเภอ 1 โรงเรียนคุณภาพ" class="h-20 md:h-24">
+                <img src="https://img5.pic.in.th/file/secure-sv1/988bb5d5d51ef22229c054193a2771de.png" alt="สพฐ" class="h-20 md:h-24">
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800">แดชบอร์ดสรุปผลการทดสอบ CEFR</h1>
+            <p class="text-lg md:text-xl text-slate-600 mt-2">โครงการ 1 อำเภอ 1 โรงเรียนคุณภาพ สพป.เลย เขต 1</p>
+        </header>
+        
+        <!-- Navigation -->
+        <nav class="card p-4 mb-8">
+            <div id="nav-container" class="flex flex-wrap justify-center gap-2 md:gap-4">
+                <button id="nav-district" class="nav-btn active">ภาพรวมระดับเขต</button>
+                <button id="nav-naduang" class="nav-btn">รร.ชุมชนบ้านนาด้วง</button>
+                <button id="nav-thali" class="nav-btn">รร.บ้านท่าลี่</button>
+                <button id="nav-chiangkhan" class="nav-btn">รร.บ้านเชียงคาน "วิจิตรวิทยา"</button>
+                <button id="nav-nakok" class="nav-btn">รร.บ้านนาโคก</button>
+                <button id="nav-pakchom" class="nav-btn">รร.ชุมชนบ้านปากชม</button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="content-area">
+            <!-- Views will be dynamically inserted here -->
+        </main>
+
+        <!-- Infographic Introduction Section -->
+        <div class="mt-12 card p-6">
+            <h2 class="text-2xl font-bold text-slate-700 text-center mb-6">ที่มาและความสำคัญของการทดสอบ</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl border-l-4 border-blue-500 flex items-start gap-4">
+                    <i class="ph-bold ph-books text-4xl text-blue-500 mt-1"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">CEFR คืออะไร?</h3>
+                        <p class="mt-1 text-slate-600">CEFR (Common European Framework of Reference for Languages) คือ กรอบมาตรฐานการประเมินความสามารถทางภาษาที่เป็นที่ยอมรับในระดับสากล ใช้อธิบายระดับความเชี่ยวชาญของผู้เรียนภาษาได้อย่างเป็นระบบ โดยจำแนกระดับความสามารถไว้ 6 ระดับ ตั้งแต่ A1 (เริ่มต้น) ไปจนถึง C2 (เชี่ยวชาญ) ซึ่งช่วยให้สามารถวัดผลทักษะการฟัง พูด อ่าน เขียน และเปรียบเทียบได้อย่างชัดเจนและมีมาตรฐานเดียวกันทั่วโลก</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-amber-500 flex items-start gap-4">
+                    <i class="ph-bold ph-buildings text-4xl text-amber-500 mt-1"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">เป้าหมายโรงเรียนคุณภาพ</h3>
+                        <p class="mt-1 text-slate-600">ภายใต้โครงการ “1 อำเภอ 1 โรงเรียนคุณภาพ” ซึ่งมุ่งยกระดับโรงเรียนให้เป็นต้นแบบ การพัฒนาศักยภาพทางภาษาอังกฤษของบุคลากรครูจึงเป็นหัวใจสำคัญ เพราะเป็นพื้นฐานของการจัดการเรียนรู้แห่งศตวรรษที่ 21 ช่วยให้นักเรียนและครูสามารถเข้าถึงองค์ความรู้จากทั่วโลกได้ การทดสอบนี้จึงเป็นเครื่องมือประเมินสถานะปัจจุบัน (Baseline Assessment) เพื่อให้สามารถวางแผนพัฒนาบุคลากรได้อย่างตรงจุดและมีประสิทธิภาพ</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-teal-500 flex items-start gap-4">
+                    <i class="ph-bold ph-exam text-4xl text-teal-500 mt-1"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">ทดสอบโดย EF SET</h3>
+                        <p class="mt-1 text-slate-600">การทดสอบในครั้งนี้ดำเนินการโดยใช้แบบทดสอบ EF SET (EF Standard English Test) ซึ่งเป็นแบบทดสอบวัดระดับภาษาอังกฤษมาตรฐานที่ถูกออกแบบมาให้สอดคล้องกับกรอบ CEFR อย่างแม่นยำ ด้วยความน่าเชื่อถือและได้รับการยอมรับจากองค์กรและสถาบันการศึกษาทั่วโลก ผลการทดสอบนี้จึงช่วยให้บุคลากรแต่ละท่านทราบถึงระดับความสามารถของตนเองอย่างชัดเจน เพื่อนำไปสู่การพัฒนาตนเองที่ตรงเป้าหมายต่อไป</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Development Guidelines Section -->
+        <div class="card p-4 md:p-6 mt-10 border-t-4 border-green-600">
+            <div class="text-center border-b-2 border-slate-100 pb-4 mb-6">
+                 <h2 class="text-2xl font-bold text-green-800">ข้อเสนอแนะและแนวทางการพัฒนา</h2>
+                 <p class="text-slate-500">แบ่งตามกลุ่มระดับความสามารถเพื่อการพัฒนาที่ตรงจุด</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Foundational Group -->
+                <div class="bg-amber-50 p-6 rounded-lg">
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-seedling text-3xl text-amber-600"></i><div><h3 class="text-lg font-bold text-amber-800">กลุ่มพื้นฐาน (A1 - A2)</h3><p class="text-sm text-amber-700">เป้าหมาย: สร้างความมั่นใจและทักษะสื่อสารพื้นฐาน</p></div></div>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-700 list-disc list-inside">
+                        <li>จัดอบรมเน้นคำศัพท์และไวยากรณ์ที่จำเป็นในชีวิตประจำวัน</li><li>ส่งเสริมการใช้แอปพลิเคชันเรียนภาษา</li><li>สร้างกิจกรรม Role-play ในสถานการณ์ง่ายๆ</li><li>จัดหาคลังสื่อการเรียนรู้พื้นฐาน เช่น การ์ตูน หรือนิทานสั้นๆ</li>
+                    </ul>
+                </div>
+                <!-- Intermediate Group -->
+                <div class="bg-sky-50 p-6 rounded-lg">
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-tree-evergreen text-3xl text-sky-600"></i><div><h3 class="text-lg font-bold text-sky-800">กลุ่มใช้งานได้ (B1 - B2)</h3><p class="text-sm text-sky-700">เป้าหมาย: ต่อยอดสู่การใช้ภาษาในบริบทวิชาชีพ</p></div></div>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-700 list-disc list-inside">
+                        <li>จัดตั้งชุมชนแห่งการเรียนรู้ (PLC) เพื่อฝึกฝนการใช้ภาษา</li><li>มอบหมายโครงการที่ต้องใช้ภาษาอังกฤษ</li><li>จัดกิจกรรม "English Speaking Day"</li><li>ส่งเสริมการอบรมการสอนเป็นภาษาอังกฤษ (CLIL)</li>
+                    </ul>
+                </div>
+                <!-- Advanced Group -->
+                <div class="bg-violet-50 p-6 rounded-lg">
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-medal text-3xl text-violet-600"></i><div><h3 class="text-lg font-bold text-violet-800">กลุ่มเชี่ยวชาญ (C1 - C2)</h3><p class="text-sm text-violet-700">เป้าหมาย: พัฒนาสู่การเป็นผู้นำและพี่เลี้ยง</p></div></div>
+                     <ul class="mt-4 space-y-2 text-sm text-slate-700 list-disc list-inside">
+                        <li>ส่งเสริมให้เป็นวิทยากรหรือผู้นำในกิจกรรม PLC</li><li>สนับสนุนการสร้างสื่อการสอนภาษาอังกฤษเพื่อเผยแพร่</li><li>ผลักดันให้เข้ารับการทดสอบวัดระดับทางวิชาชีพครู (เช่น TKT)</li><li>ให้เป็นพี่เลี้ยง (Mentor) ให้กับครูในกลุ่มอื่นๆ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- DATA STORE ---
+    const APP_DATA = {
+        cefrLevels: ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
+        cefrColors: {
+            A0: '#ef4444', A1: '#f97316', A2: '#eab308', B1: '#84cc16', B2: '#22c55e', C1: '#10b981', C2: '#06b6d4' 
+        },
+        district: {
+            name: 'ภาพรวมระดับเขต สพป.เลย เขต 1',
+            participants: 98,
+            overall: { A0: 1, A1: 10, A2: 20, B1: 40, B2: 23, C1: 3, C2: 1 },
+            skills: {
+                reading:    { name: 'การอ่าน',    data: { A0: 2, A1: 16, A2: 25, B1: 12, B2: 26, C1: 13, C2: 5 } },
+                listening:  { name: 'การฟัง',    data: { A0: 0, A1: 24, A2: 19, B1: 28, B2: 17, C1: 4, C2: 2 } },
+                speaking:   { name: 'การพูด',   data: { A0: 2, A1: 1, A2: 24, B1: 39, B2: 19, C1: 2, C2: 1 } },
+                writing:    { name: 'การเขียน',   data: { A0: 11, A1: 6, A2: 18, B1: 14, B2: 27, C1: 20, C2: 2 } }
+            }
+        },
+        schools: [
+            {
+                id: 'naduang', name: 'โรงเรียนชุมชนบ้านนาด้วง', participants: 18,
+                overall: { A0:0, A1: 0, A2: 2, B1: 9, B2: 7, C1: 0, C2: 0 },
+                skills: {
+                    reading:   { name: 'การอ่าน', data: { A0:0, A1: 1, A2: 3, B1: 1, B2: 8, C1: 3, C2: 1 } },
+                    listening: { name: 'การฟัง', data: { A0:0, A1: 2, A2: 3, B1: 5, B2: 4, C1: 0, C2: 1 } },
+                    speaking:  { name: 'การพูด', data: { A0:0, A1: 0, A2: 2, B1: 9, B2: 2, C1: 0, C2: 0 } },
+                    writing:   { name: 'การเขียน', data: { A0:0, A1: 0, A2: 2, B1: 2, B2: 10, C1: 4, C2: 0 } }
+                },
+                teachers: [
+                    { name: "นิภาพร นามวงษา", position: "ชำนาญการพิเศษ", overall: "B1", r: "C1", l: "A2", s: "A2", w: "B2" },
+                    { name: "ดุษฎี ศรีจำปา", position: "ชำนาญการ", overall: "B1", r: "A2", l: "B2", s: "B1", w: "B1" },
+                    { name: "พัทธวรรณ แฮร์ริงตัน", position: "ครูชำนาญการพิเศษ", overall: "B2", r: "B2", l: "B2", s: "B1", w: "B1" },
+                    { name: "Chatchai Thammawan", position: "ครู", overall: "B1", r: "B2", l: "A1", s: "B1", w: "B2" },
+                    { name: "นริศรา บัวลา", position: "ครู", overall: "B2", r: "B2", l: "C2", s: "B1", w: "B2" },
+                    { name: "สุนันทินี ศรีบุรินทร์", position: "ครู", overall: "B1", r: "B2", l: "B1", s: "B1", w: "B2" },
+                    { name: "พัชรี ดอกไม้", position: "ครูผู้ช่วย", overall: "A2", r: "A1", l: "B1", s: "B1", w: "A2" },
+                    { name: "เกษราภรณ์ จำปาแพง", position: "ครู", overall: "B2", r: "C2", l: "B2", s: "B1", w: "B2" },
+                    { name: "Wayupa Prasan", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B2", l: "A2", s: "B1", w: "C1" },
+                    { name: "รุ่งทิวา ทาป้อง", position: "ครูผู้ช่วย", overall: "B2", r: "C1", l: "B2", s: "B1", w: "C1" },
+                    { name: "นางกัลยาณี วอแพง", position: "ครูชำนาญการ", overall: "A2", r: "A2", l: "A2", s: "A2", w: "B2" },
+                    { name: "ทิวาพร ภูที บุตะใน", position: "ครูชำนาญการ", overall: "B2", r: "B1", l: "B2", s: "B2", w: "B2" },
+                    { name: "พิชญาภา ขวัญพลอย", position: "ครู", overall: "B1", r: "B2", l: "B1", s: "B1", w: "A2" },
+                    { name: "jitranuch Baothong", position: "ครูผู้ช่วย", overall: "B2", r: "B2", l: "B2", s: "B1", w: "C1" },
+                    { name: "จิราพร พิงสระน้อย", position: "ครู", overall: "B1", r: "B2", l: "A1", s: "B2", w: "B2" },
+                    { name: "นางวันเพ็ญ วงศ์กิตตะ", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "A2", l: "B1", s: "B1", w: "B2" },
+                    { name: "Carlou Manasis", position: "ครู", overall: "B2", r: "C1", l: "B1", s: "B1", w: "B1" },
+                    { name: "Walailak Phakdeewiset", position: "ครู", overall: "B1", r: "-", l: "-", s: "-", w: "-" },
+                ]
+            },
+            {
+                id: 'thali', name: 'โรงเรียนบ้านท่าลี่', participants: 26,
+                overall: { A0: 1, A1: 8, A2: 8, B1: 6, B2: 3, C1: 0, C2: 0 },
+                skills: {
+                    reading:   { name: 'การอ่าน', data: { A0: 2, A1: 8, A2: 7, B1: 3, B2: 4, C1: 2, C2: 0 } },
+                    listening: { name: 'การฟัง', data: { A0: 0, A1: 11, A2: 6, B1: 6, B2: 1, C1: 0, C2: 0 } },
+                    speaking:  { name: 'การพูด', data: { A0: 2, A1: 1, A2: 9, B1: 8, B2: 2, C1: 0, C2: 0 } },
+                    writing:   { name: 'การเขียน', data: { A0: 6, A1: 3, A2: 10, B1: 2, B2: 4, C1: 1, C2: 0 } }
+                },
+                teachers: [
+                    { name: "Siriporn Yaowaphan", position: "ชำนาญการพิเศษ", overall: "B2", r: "B2", l: "B1", s: "B2", w: "B2" },
+                    { name: "Ruttanaporn Tipratree", position: "senior professional level", overall: "B2", r: "A2", l: "B1", s: "B2", w: "B2" },
+                    { name: "Sattawat Chanthawong", position: "ครู", overall: "B1", r: "B2", l: "B1", s: "B1", w: "B1" },
+                    { name: "ภูบดินทร์ อัศวรัตนกุล", position: "ครู", overall: "A2", r: "A2", l: "A2", s: "B1", w: "A1" },
+                    { name: "ว่าที่ ร.ต. ธนดล เกษตร", position: "ครูชำนาญการ", overall: "A1", r: "A1", l: "A1", s: "A2", w: "A2" },
+                    { name: "นายอานนท์ ชาวตวันตก", position: "ครูชำนาญการพิเศษ", overall: "A1", r: "A1", l: "B1", s: "-", w: "A0" },
+                    { name: "ณัฏฐพัชร์ สุติยะวัน", position: "ครู", overall: "B1", r: "B2", l: "A1", s: "A2", w: "B1" },
+                    { name: "นางสาวอินทิรา หารปราบ", position: "ครูชำนาญการ", overall: "B1", r: "A2", l: "A2", s: "B1", w: "B2" },
+                    { name: "นางสาวรัชดาภรณ์ ธรรมรังษี", position: "ครู", overall: "B1", r: "B1", l: "A2", s: "B1", w: "B2" },
+                    { name: "นางวาสนา ศรนวล", position: "ครูชำนาญการพิเศษ", overall: "A2", r: "A1", l: "A2", s: "A2", w: "A2" },
+                    { name: "นางสาวนิชานันท์ มงคลชัย", position: "ครูชำนาญการ", overall: "A1", r: "A1", l: "A1", s: "A2", w: "A2" },
+                    { name: "นางสาวภัสสร อ่อนศิริ", position: "ครูชำนาญการ", overall: "B1", r: "A1", l: "B2", s: "B1", w: "C1" },
+                    { name: "นางสาวณัฏฐพัชร์ สุติยะวัน", position: "ครู", overall: "A1", r: "C1", l: "A1", s: "A0", w: "A0" },
+                    { name: "Nattarika Jampawat", position: "ครูผู้ช่วย", overall: "A2", r: "A2", l: "A1", s: "A2", w: "A2" },
+                    { name: "อรนภา กันนะเรศ", position: "ครู", overall: "A1", r: "A2", l: "A1", s: "A2", w: "A0" },
+                    { name: "นางนิษารัตน์ พิลาคุณ", position: "ครูชำนาญการ", overall: "A1", r: "A1", l: "A1", s: "A2", w: "A0" },
+                    { name: "จารุวรรณ คำกรฤาชา", position: "ครู", overall: "A1", r: "A0", l: "A1", s: "A2", w: "A1" },
+                    { name: "นางสาวรัตนา ขันทะคีรี", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B2", l: "A2", s: "B2", w: "A2" },
+                    { name: "นางศศิธร ยอดเจริญ", position: "ครูชำนาญการ", overall: "B1", r: "C1", l: "A2", s: "B1", w: "A2" },
+                    { name: "นางสาวศิรินภา คำปัญญา", position: "ครูชำนาญการ", overall: "A2", r: "A2", l: "B1", s: "B1", w: "A1" },
+                    { name: "นางรพิรัตน์ บุบผา", position: "ครูชำนาญการ", overall: "A1", r: "A1", l: "A1", s: "A1", w: "A2" },
+                    { name: "นางฐิติกาญจน์ ศรีทานนท์", position: "ครูชำนาญการ", overall: "A2", r: "B1", l: "B1", s: "A1", w: "A0" },
+                    { name: "ศตวรรษ จันทะวงษ์", position: "ครู", overall: "A2", r: "A2", l: "A2", s: "B1", w: "A2" },
+                    { name: "กรรณิกา สารพันธ์", position: "ครูชำนาญการ", overall: "A0", r: "A0", l: "A1", s: "-", w: "A0" },
+                    { name: "ดวงจันทร์ วรสิทธิ์", position: "ครูชำนาญการพิเศษ", overall: "A2", r: "B1", l: "A1", s: "-", w: "A2" },
+                    { name: "นางทัศนีย์ บุญล้อมรัตน์", position: "ครูชำนาญการพิเศษ", overall: "A1", r: "A1", l: "A1", s: "A0", w: "A2" },
+                ]
+            },
+            {
+                id: 'chiangkhan', name: 'โรงเรียนบ้านเชียงคาน "วิจิตรวิทยา"', participants: 19,
+                overall: { A0:0, A1: 0, A2: 1, B1: 11, B2: 6, C1: 1, C2: 0 },
+                skills: {
+                    reading:   { name: 'การอ่าน', data: { A0: 0, A1: 2, A2: 5, B1: 4, B2: 4, C1: 3, C2: 0 } },
+                    listening: { name: 'การฟัง', data: { A0: 0, A1: 2, A2: 3, B1: 9, B2: 3, C1: 2, C2: 0 } },
+                    speaking:  { name: 'การพูด', data: { A0: 0, A1: 0, A2: 4, B1: 7, B2: 8, C1: 0, C2: 0 } },
+                    writing:   { name: 'การเขียน', data: { A0: 0, A1: 0, A2: 0, B1: 1, B2: 7, C1: 9, C2: 2 } }
+                },
+                teachers: [
+                    { name: "นายธนภณ คำยิ่งเดชาภัทร", position: "ชำนาญการพิเศษ", overall: "B1", r: "A2", l: "B1", s: "B1", w: "B2" },
+                    { name: "นางสาวศศิธร ศิริวัฒน์", position: "ครูชำนาญการ", overall: "B1", r: "C1", l: "A2", s: "B1", w: "C1" },
+                    { name: "นายกิติพัฒน์ นาดี", position: "ครู", overall: "B2", r: "A2", l: "B1", s: "B2", w: "C2" },
+                    { name: "Juntima Sananuch", position: "ครูชำนาญการ", overall: "B1", r: "A2", l: "B2", s: "B1", w: "C1" },
+                    { name: "Sittikorn Kunchart", position: "ครูชำนาญการ", overall: "B1", r: "A2", l: "B1", s: "A2", w: "C1" },
+                    { name: "นายคมกริช ดอนกลาง", position: "ครู", overall: "B1", r: "A2", l: "B1", s: "B2", w: "B2" },
+                    { name: "กัมพล เรืองสมบัติ", position: "ครูชำนาญการ", overall: "B1", r: "B2", l: "A1", s: "B2", w: "B2" },
+                    { name: "นางสาวดวงพร โสวันนา", position: "ครู", overall: "B2", r: "B2", l: "B2", s: "B1", w: "C1" },
+                    { name: "นางสาวจารุวรรณ พนะโพธิ์", position: "ครูชำนาญการพิเศษ", overall: "C1", r: "C1", l: "C1", s: "B2", w: "C1" },
+                    { name: "นางสาวสุชาดา เพ็งเที่ยง", position: "ครูชำนาญการ", overall: "B1", r: "B1", l: "A2", s: "B2", w: "C1" },
+                    { name: "นางสุพรรณี สอนอ่อน", position: "ครูชำนาญการพิเศษ", overall: "B2", r: "B1", l: "B1", s: "B2", w: "C2" },
+                    { name: "กรกนก บรรเทา", position: "ครู", overall: "B2", r: "B2", l: "B1", s: "B2", w: "B2" },
+                    { name: "นางสาวหฤทัย วางอภัย", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B1", l: "B1", s: "B1", w: "B2" },
+                    { name: "Thidarat Piewpantamit", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B1", l: "B1", s: "A2", w: "C1" },
+                    { name: "นางชัญญา คำยิ่งเดชาภัทร", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B1", l: "A1", s: "A2", w: "B1" },
+                    { name: "Wipakorn Chantapan", position: "ครูชำนาญการ", overall: "B1", r: "B2", l: "B1", s: "B1", w: "B2" },
+                    { name: "Sittikorn Kunchart", position: "ครูชำนาญการ", overall: "A2", r: "A1", l: "A2", s: "A2", w: "B2" },
+                    { name: "Sirinya Burakorn", position: "ครูชำนาญการ", overall: "B2", r: "A1", l: "C1", s: "B1", w: "C1" },
+                    { name: "นางสาวอัจฉราภรณ์ โกสูงเนิน", position: "ครู", overall: "B2", r: "B2", l: "B2", s: "B2", w: "C1" },
+                ]
+            },
+            {
+                id: 'nakok', name: 'โรงเรียนบ้านนาโคก', participants: 12,
+                overall: { A0:0, A1: 1, A2: 5, B1: 4, B2: 2, C1: 0, C2: 0 },
+                skills: {
+                    reading:   { name: 'การอ่าน', data: { A0: 0, A1: 2, A2: 8, B1: 0, B2: 2, C1: 0, C2: 0 } },
+                    listening: { name: 'การฟัง', data: { A0: 0, A1: 4, A2: 5, B1: 3, B2: 0, C1: 0, C2: 0 } },
+                    speaking:  { name: 'การพูด', data: { A0: 0, A1: 0, A2: 3, B1: 5, B2: 4, C1: 0, C2: 0 } },
+                    writing:   { name: 'การเขียน', data: { A0: 3, A1: 0, A2: 1, B1: 1, B2: 5, C1: 2, C2: 0 } }
+                },
+                teachers: [
+                    { name: "นางสาวอรุณี ราชพัฒน์", position: "ชำนาญการพิเศษ", overall: "A2", r: "A2", l: "A2", s: "B1", w: "A0" },
+                    { name: "นางสาวนราพรรณ ใจทน", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "A2", l: "B1", s: "B2", w: "A2" },
+                    { name: "นางดวงใจ วิชาเครื่อง", position: "ครูชำนาญการพิเศษ", overall: "A2", r: "A1", l: "A2", s: "A2", w: "B2" },
+                    { name: "นางวิไลวรรณ พิมพ์มุข", position: "ครูชำนาญการพิเศษ", overall: "A2", r: "A1", l: "A1", s: "B1", w: "B1" },
+                    { name: "Ms. Nitcha Buddeesuwan", position: "ครูชำนาญการ", overall: "B2", r: "B2", l: "B2", s: "B2", w: "C1" },
+                    { name: "กมลชนก สิงมะม่อ", position: "ครูชำนาญการ", overall: "A2", r: "A2", l: "A1", s: "A2", w: "B2" },
+                    { name: "นางสุพรรณี ดีใหม่", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "A2", l: "A1", s: "B1", w: "B2" },
+                    { name: "นายราชวัตร สายา", position: "ครูชำนาญการพิเศษ", overall: "A1", r: "A2", l: "A1", s: "B1", w: "A0" },
+                    { name: "สิริชัย แดงเทโพธิ์", position: "ครู", overall: "B1", r: "A2", l: "B1", s: "A2", w: "B2" },
+                    { name: "น.ส.ณิชชา บุตรดีสุวรรณ", position: "ครูชำนาญการ", overall: "B2", r: "A2", l: "B1", s: "B2", w: "C1" },
+                    { name: "นางรติมณีฐ์ ชัชวาลย์", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B2", l: "A2", s: "B1", w: "B2" },
+                    { name: "นางสุจินต์ ชมภูพื้น", position: "ครูชำนาญการพิเศษ", overall: "A2", r: "A2", l: "A2", s: "B1", w: "A0" },
+                ]
+            },
+            {
+                id: 'pakchom', name: 'โรงเรียนชุมชนบ้านปากชม', participants: 23,
+                overall: { A0:0, A1: 1, A2: 4, B1: 10, B2: 5, C1: 2, C2: 1 },
+                skills: {
+                    reading:   { name: 'การอ่าน', data: { A0: 0, A1: 2, A2: 1, B1: 3, B2: 10, C1: 3, C2: 4 } },
+                    listening: { name: 'การฟัง', data: { A0: 0, A1: 4, A2: 1, B1: 6, B2: 9, C1: 1, C2: 1 } },
+                    speaking:  { name: 'การพูด', data: { A0: 1, A1: 0, A2: 6, B1: 9, B2: 3, C1: 2, C2: 1 } },
+                    writing:   { name: 'การเขียน', data: { A0: 2, A1: 3, A2: 5, B1: 8, B2: 1, C1: 4, C2: 0 } }
+                },
+                teachers: [
+                    { name: "Chadaporn Yuenyongkittichai", position: "ผู้อำนวยการชำนาญการพิเศษ", overall: "B2", r: "C2", l: "B2", s: "B2", w: "B1" },
+                    { name: "Jeeraphan Chotwattananusorn", position: "รองผู้อำนวยการชำนาญการ", overall: "C1", r: "C2", l: "B1", s: "B1", w: "C1" },
+                    { name: "นางมณฑิชา พรมศรี", position: "ครูชำนาญการ", overall: "B1", r: "B2", l: "B1", s: "A2", w: "B1" },
+                    { name: "Wilawan Suwannahan", position: "ครูผู้ช่วย", overall: "A2", r: "A2", l: "A1", s: "B1", w: "A2" },
+                    { name: "ประภาพร แก่นทะวงษ์", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "C1", l: "B1", s: "A2", w: "A1" },
+                    { name: "Kamonnat Duangsri", position: "ครู", overall: "B1", r: "B1", l: "B1", s: "A1", w: "B2" },
+                    { name: "จินตนา สีภา", position: "ครูชำนาญการ", overall: "B2", r: "B2", l: "B2", s: "B1", w: "C1" },
+                    { name: "Wilasinee Thanurach", position: "ครู", overall: "A2", r: "A1", l: "A1", s: "B1", w: "A2" },
+                    { name: "Piyanai Yuenyongkittichai", position: "ครู", overall: "B1", r: "A2", l: "A2", s: "A2", w: "B2" },
+                    { name: "Mr.Sirisavas Pannoi", position: "ครู", overall: "A2", r: "A1", l: "A2", s: "B1", w: "A1" },
+                    { name: "Rittichai Phoomeesaeng", position: "ครู", overall: "B2", r: "C2", l: "B2", s: "B1", w: "B2" },
+                    { name: "วรรณภา ม่วงเพชร", position: "ครูชำนาญการพิเศษ", overall: "B2", r: "C1", l: "B2", s: "B1", w: "B1" },
+                    { name: "สุรีพร คำรังษี", position: "ครู", overall: "B1", r: "B2", l: "A1", s: "A2", w: "B1" },
+                    { name: "ชนิดา พวงศิริ", position: "ครูชำนาญการ", overall: "B2", r: "B2", l: "A2", s: "C1", w: "C1" },
+                    { name: "วิลาสินี ทนุราช", position: "ครู", overall: "C2", r: "C2", l: "B2", s: "C2", w: "B2" },
+                    { name: "นายฤทธิ์ไกร วันหากิจ", position: "ครูชำนาญการ", overall: "A2", r: "B2", l: "A1", s: "A0", w: "B1" },
+                    { name: "ฤทธิ์ไกร วันหากิจ", position: "ครูชำนาญการ", overall: "A1", r: "A1", l: "A1", s: "A0", w: "A1" },
+                    { name: "ทัศนันท์ จันทร์บุตรสา", position: "ครูชำนาญการ", overall: "B1", r: "B1", l: "A2", s: "A2", w: "B1" },
+                    { name: "รามิน นามศิริ", position: "ครู", overall: "B1", r: "B2", l: "A1", s: "B2", w: "B2" },
+                    { name: "Chintana Sipha", position: "ครูชำนาญการพิเศษ", overall: "B1", r: "B2", l: "B1", s: "B1", w: "B2" },
+                    { name: "ฉัตรวิไล พูดขุนทศ", position: "ครูชำนาญการ", overall: "B1", r: "A1", l: "B1", s: "B2", w: "B2" },
+                    { name: "นายยุทธพล ศรีพล", position: "ครูชำนาญการ", overall: "B1", r: "B1", l: "B1", s: "A2", w: "B2" },
+                    { name: "Joseph Eshun", position: "ครู", overall: "C1", r: "C2", l: "C2", s: "C1", w: "B2" },
+                ]
+            }
+        ]
+    };
+
+    // --- UTILITY & CALCULATION FUNCTIONS ---
+    let activeCharts = [];
+
+    function destroyActiveCharts() {
+        activeCharts.forEach(chart => chart.destroy());
+        activeCharts = [];
+    }
+    
+    function getTopModes(dataObject, topN = 3) {
+        return Object.entries(dataObject)
+            .sort(([, countA], [, countB]) => countB - countA)
+            .slice(0, topN)
+            .map(([level, count]) => ({ level, count }));
+    }
+
+    function calculateStats(dataObject) {
+        const numericMap = { 'A0': 0, 'A1': 1, 'A2': 2, 'B1': 3, 'B2': 4, 'C1': 5, 'C2': 6 };
+        const levelMap = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+        let allScores = [];
+
+        for (const level of APP_DATA.cefrLevels) {
+            const num = dataObject[level] || 0;
+            if (num > 0) {
+                const score = numericMap[level];
+                for (let i = 0; i < num; i++) { allScores.push(score); }
+            }
+        }
+        
+        if (allScores.length === 0) return { meanLevel: 'N/A', sd: 'N/A' };
+
+        const sum = allScores.reduce((acc, score) => acc + score, 0);
+        const meanNumeric = sum / allScores.length;
+        const variance = allScores.reduce((acc, score) => acc + Math.pow(score - meanNumeric, 2), 0) / allScores.length;
+        const sd = Math.sqrt(variance);
+        const meanLevel = levelMap[Math.round(meanNumeric)] || 'N/A';
+
+        return { meanLevel: meanLevel, sd: sd.toFixed(2) };
+    }
+
+    function generateSummaryText(stats, topModes, data) {
+        let analysis = `
+            <p class="mb-2">
+                จากผู้เข้าทดสอบ ${data.participants} คน พบว่าบุคลากรส่วนใหญ่มีความสามารถทางภาษาอังกฤษอยู่ใน 3 ระดับแรกคือ <strong>${topModes.map(m => `${m.level} (${m.count} คน)`).join(', ')}</strong> โดยมีระดับความสามารถเฉลี่ยของทั้งกลุ่มอยู่ที่ <strong>${stats.meanLevel}</strong>.
+            </p>
+            <p class="mb-3">
+                ค่าเบี่ยงเบนมาตรฐาน (S.D.) อยู่ที่ <strong>${stats.sd}</strong> ซึ่งบ่งชี้ว่า `;
+
+        const sdValue = parseFloat(stats.sd);
+        let developmentFocus = '';
+
+        if (sdValue < 1.1) {
+            analysis += `ระดับความสามารถของบุคลากรส่วนใหญ่อยู่ในระดับใกล้เคียงกัน ซึ่งเป็นจุดแข็งในการวางแผนพัฒนาทั้งระบบ.`;
+            developmentFocus = `
+                <strong class="text-indigo-800">แนวทางการพัฒนาหลัก:</strong>
+                <ul class="list-disc list-inside mt-1 text-sm">
+                    <li>ควรมุ่งเน้นการยกระดับบุคลากรทั้งกลุ่ม (Whole-Group Upskilling) เพื่อขยับขึ้นสู่ระดับถัดไปพร้อมกัน.</li>
+                    <li>จัดกิจกรรม PLC และ Workshop ที่เน้นการต่อยอดทักษะจากระดับ ${topModes[0].level} ไปสู่ระดับที่สูงขึ้น.</li>
+                </ul>`;
+        } else {
+            analysis += `บุคลากรมีความสามารถที่หลากหลายและมีการกระจายตัวค่อนข้างกว้าง ซึ่งจำเป็นต้องมีการวางแผนพัฒนาที่แตกต่างกันตามกลุ่มระดับ.`;
+            developmentFocus = `
+                <strong class="text-indigo-800">แนวทางการพัฒนาหลัก:</strong>
+                <ul class="list-disc list-inside mt-1 text-sm">
+                    <li>จำเป็นต้องใช้แนวทางการพัฒนาแบบจำแนกตามกลุ่ม (Differentiated Development) อย่างชัดเจน.</li>
+                    <li>จัดหลักสูตร/กิจกรรมที่แตกต่างกันสำหรับกลุ่ม A1-A2 (เน้นพื้นฐาน), B1-B2 (เน้นการประยุกต์ใช้), และ C1-C2 (เน้นความเป็นผู้นำ).</li>
+                </ul>`;
+        }
+        
+        analysis += `</p><div class="mt-2 pt-2 border-t border-slate-200">${developmentFocus}</div>`;
+        
+        return analysis;
+    }
+
+
+    // --- CHART & TABLE RENDERING LOGIC ---
+    function createBarChart(canvasId, data, title, isSkillChart = false) {
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) return;
+        const chart = new Chart(ctx.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: APP_DATA.cefrLevels,
+                datasets: [{
+                    label: 'จำนวน (คน)',
+                    data: APP_DATA.cefrLevels.map(level => data[level] || 0),
+                    backgroundColor: APP_DATA.cefrLevels.map(level => APP_DATA.cefrColors[level]),
+                    borderWidth: 1,
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: title, font: { size: isSkillChart ? 14 : 16, weight: '500' }, padding: { bottom: 10 } }
+                },
+                scales: {
+                    y: { beginAtZero: true, ticks: { precision: 0, stepSize: isSkillChart ? 4 : 5, font: { size: 10 } }, grid: { color: '#e2e8f0' } },
+                    x: { grid: { display: false }, ticks: { font: { size: 12 } } }
+                }
+            }
+        });
+        activeCharts.push(chart);
+    }
+
+    function createTable(teacherData) {
+        const cefrBadge = (level) => {
+            if (!level || level === '-') return `<span class="px-2 py-1 text-xs font-semibold text-white rounded-full cefr-color-default">-</span>`;
+            const colorClass = `cefr-color-${level.toLowerCase()}`;
+            return `<span class="px-2 py-1 text-xs font-semibold text-white rounded-full ${colorClass}">${level}</span>`;
+        };
+        const tableRows = teacherData.map((teacher, index) => `
+            <tr class="hover:bg-slate-50">
+                <td class="py-2 px-3 text-sm text-center text-slate-500">${index + 1}</td>
+                <td class="py-2 px-3 text-sm text-slate-800 font-medium">${teacher.name}</td>
+                <td class="py-2 px-3 text-sm text-slate-600">${teacher.position}</td>
+                <td class="py-2 px-3 text-center text-sm">${cefrBadge(teacher.overall)}</td>
+                <td class="py-2 px-3 text-center text-sm">${cefrBadge(teacher.r)}</td>
+                <td class="py-2 px-3 text-center text-sm">${cefrBadge(teacher.l)}</td>
+                <td class="py-2 px-3 text-center text-sm">${cefrBadge(teacher.s)}</td>
+                <td class="py-2 px-3 text-center text-sm">${cefrBadge(teacher.w)}</td>
+            </tr>`).join('');
+        return `
+            <div class="overflow-x-auto rounded-lg border border-slate-200">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-slate-100 text-slate-700">
+                        <tr>
+                            <th class="py-2 px-3 text-center text-sm font-semibold w-12">ลำดับ</th>
+                            <th class="py-2 px-3 text-left text-sm font-semibold">ชื่อ-สกุล</th>
+                            <th class="py-2 px-3 text-left text-sm font-semibold">ตำแหน่ง</th>
+                            <th class="py-2 px-3 text-center text-sm font-semibold">Overall</th>
+                            <th class="py-2 px-3 text-center text-sm font-semibold">Reading</th>
+                            <th class="py-2 px-3 text-center text-sm font-semibold">Listening</th>
+                            <th class="py-2 px-3 text-center text-sm font-semibold">Speaking</th>
+                            <th class="py-2 px-3 text-center text-sm font-semibold">Writing</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">${tableRows}</tbody>
+                </table>
+            </div>`;
+    }
+
+    // --- VIEW RENDERING LOGIC ---
+    const contentArea = document.getElementById('content-area');
+    const skillIcons = {reading: 'book-open', listening: 'ear', speaking: 'microphone', writing: 'pencil-line'};
+
+    function renderView(viewId) {
+        destroyActiveCharts();
+        contentArea.innerHTML = ''; 
+        
+        let data, isDistrictView;
+
+        if (viewId === 'district') {
+            data = APP_DATA.district;
+            isDistrictView = true;
+        } else {
+            data = APP_DATA.schools.find(s => s.id === viewId);
+            isDistrictView = false;
+        }
+        
+        if (!data) return;
+
+        const stats = calculateStats(data.overall);
+        const topModes = getTopModes(data.overall);
+
+        const topModesHTML = topModes.map((mode, index) => `
+            <div class="p-3 bg-indigo-50 rounded-lg">
+                <p class="text-xs text-indigo-700 font-semibold">อันดับที่ ${index + 1}</p>
+                <p class="text-2xl font-bold text-indigo-900">${mode.level} <span class="text-base font-medium">(${mode.count} คน)</span></p>
+            </div>
+        `).join('');
+
+        const chartsHTML = `
+            <div class="chart-container"><canvas id="overall-${viewId}"></canvas></div>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-center">
+                ${topModesHTML}
+                <div class="p-3 bg-teal-50 rounded-lg">
+                    <p class="text-xs text-teal-700 font-semibold">ค่าเฉลี่ย (Mean)</p>
+                    <p class="text-2xl font-bold text-teal-900">${stats.meanLevel}</p>
+                </div>
+                <div class="p-3 bg-rose-50 rounded-lg">
+                    <p class="text-xs text-rose-700 font-semibold">ค่าเบี่ยงเบน (S.D.)</p>
+                    <p class="text-2xl font-bold text-rose-900">${stats.sd}</p>
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-slate-50 rounded-lg text-sm text-slate-700">
+                <p class="font-semibold mb-2">บทสรุปและข้อสังเกตเชิงพรรณนา:</p>
+                <div>${generateSummaryText(stats, topModes, data)}</div>
+            </div>`;
+
+        const skillsChartsHTML = Object.entries(data.skills).map(([key, value]) => {
+            const skillMode = getTopModes(value.data, 1)[0] || { level: 'N/A' };
+            return `
+            <div class="p-3 border border-slate-200 rounded-lg flex flex-col">
+                <div class="flex items-center gap-2 text-slate-600 mb-1"><i class="ph-fill ph-${skillIcons[key]}"></i><h4 class="font-medium text-sm">${value.name}</h4></div>
+                <div class="skill-chart-container flex-grow"><canvas id="${key}-${viewId}"></canvas></div>
+                <p class="text-xs text-center text-slate-500 mt-2">ระดับที่พบบ่อย: <strong class="text-slate-700">${skillMode.level}</strong></p>
+            </div>`;
+        }).join('');
+
+        const tableHTML = (!isDistrictView && data.teachers) 
+            ? `<div class="card p-4 md:p-6 mt-10">
+                   <h2 class="text-2xl font-bold text-slate-800 text-center mb-6">ข้อมูลผลการทดสอบรายบุคคล</h2>
+                   ${createTable(data.teachers)}
+               </div>`
+            : '';
+
+        const viewContainer = document.createElement('div');
+        viewContainer.innerHTML = `
+            <div class="card p-4 md:p-6 mb-10 border-l-4 border-indigo-600">
+                <div class="border-b-2 border-slate-100 pb-4 mb-4">
+                    <h2 class="text-xl md:text-2xl font-bold text-indigo-800">${data.name}</h2>
+                    <p class="text-slate-500">จำนวนผู้เข้าทดสอบทั้งหมด: ${data.participants} คน</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                    <div>${chartsHTML}</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${skillsChartsHTML}</div>
+                </div>
+            </div>
+            ${tableHTML}
+        `;
+        
+        contentArea.appendChild(viewContainer);
+
+        createBarChart(`overall-${viewId}`, data.overall, 'ระดับความสามารถโดยรวม (Overall)');
+        Object.entries(data.skills).forEach(([key, value]) => {
+            createBarChart(`${key}-${viewId}`, value.data, '', true);
+        });
+
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`nav-${viewId}`).classList.add('active');
+    }
+
+    // --- INITIALIZATION AND EVENT LISTENERS ---
+    document.addEventListener('DOMContentLoaded', () => {
+        renderView('district');
+        document.getElementById('nav-container').addEventListener('click', (e) => {
+            if (e.target.matches('.nav-btn')) {
+                const viewId = e.target.id.replace('nav-', '');
+                renderView(viewId);
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
